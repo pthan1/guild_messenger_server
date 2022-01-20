@@ -10,12 +10,12 @@ app.locals.title = 'Guild Messenger App Server';
 app.locals.users = [
   {
     id: 1,
-    user_name: 'ProfessorX',
+    name: 'ProfessorX',
     conversation_ids: [ 1234 ],
   },
   {
     id: 2,
-    user_name: 'Angel',
+    name: 'Angel',
     conversation_ids: [ 1234 ]
   }
 ]
@@ -63,8 +63,7 @@ app.get('/api/v1/users/', (request, response) => {
 //Get user conversations by user id
 app.get('/api/v1/conversations/:user_id', (request, response) => {
   const { user_id } = request.params;
-  console.log(request.params)
-  const conversations = app.locals.conversations.find(conversations => conversations.user_ids.includes(Number(user_id)));
+  const conversations = app.locals.conversations.filter(conversations => conversations.user_ids.includes(Number(user_id)));
 
   response.status(200).json(conversations);
 });
