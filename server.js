@@ -28,17 +28,17 @@ app.locals.conversations = [
           {
             sender: 1,
             message: 'Hello, this is Professor Charles Xavier.',
-            time_sent: '2022-01-20T04:06:24.448Z'
+            time_sent: 'Thu Jan 20 2022 02:58:57 GMT-0700 (Mountain Standard Time)'
           },
           {
             sender: 2,
             message: 'Hello, this is Angel.',
-            time_sent: '2022-01-20T04:07:26.768Z'
+            time_sent: 'Thu Jan 20 2022 02:59:37 GMT-0700 (Mountain Standard Time)'
           },
            {
             sender: 1,
             message: 'Where is your homework, Angel?',
-            time_sent: '2022-01-20T04:08:22.768Z'
+            time_sent: 'Thu Jan 20 2022 02:59:51 GMT-0700 (Mountain Standard Time)'
           }
         ]
       }
@@ -46,7 +46,7 @@ app.locals.conversations = [
 
 
 app.get('/', (request, response) => {
-  console.log('Request received')
+  response.send('Welcome to the Guild Messenger API!');
 });
 
 app.listen(app.get('port'), () => {
@@ -65,7 +65,7 @@ app.get('/api/v1/conversations/:user_id', (request, response) => {
   const { user_id } = request.params;
   const conversations = app.locals.conversations.filter(conversations => conversations.user_ids.includes(Number(user_id)));
 
-  response.status(200).json(conversations);
+  response.status(200).json({conversations});
 });
 
 //add a new message to a conversation
@@ -76,7 +76,7 @@ app.patch('/api/v1/conversations/:user_id/:conversation_id', (request, response)
 
   app.locals.conversations[conversationIndex].message_log.push(newMessage);
 
-  response.status(202).send(app.locals.conversations[conversationIndex].message_log);
+  response.status(202).send(app.locals.conversations[conversationIndex]);
 
 
 });
