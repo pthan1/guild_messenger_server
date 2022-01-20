@@ -5,12 +5,12 @@ app.set('port', process.env.PORT || 3001);
 app.locals.title = 'Guild Messenger App Server';
 app.locals.users = [
   {
-    user_id: 1,
+    id: 1,
     user_name: 'ProfessorX',
     conversation_ids: [ 1234 ],
   },
   {
-    user_id: 2,
+    id: 2,
     user_name: 'Angel',
     conversation_ids: [ 1234 ]
   }
@@ -18,7 +18,7 @@ app.locals.users = [
 
 app.locals.conversations = [
       {
-        conversation_id: 1234,
+        id: 1234,
         user_ids: [ 1, 2],
         message_log: [
           {
@@ -42,8 +42,30 @@ app.locals.conversations = [
 
 
 app.get('/', (request, response) => {
+  console.log('Request received')
 });
 
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on http://localhost:${app.get('port')}.`);
 });
+
+//Get all users
+app.get('/api/v1/users/', (request, response) => {
+  const users = app.locals.users;
+
+  response.json({ users });
+});
+
+//Get user conversations by user id
+app.get('/api/v1/conversations/:user_id', (request, response) => {
+  const { user_id } = request.params;
+  console.log(request.params)
+  const conversations = app.locals.conversations.find(conversations => conversations.user_ids.includes(Number(user_id)));
+
+
+  response.status(200).json(conversations);
+});
+
+
+
+
