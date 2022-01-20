@@ -1,8 +1,11 @@
 const express = require('express');
 const app = express();
-app.use(express.json())
+const cors = require("cors")
 
+app.use(express.json())
+app.use(cors())
 app.set('port', process.env.PORT || 3001);
+
 app.locals.title = 'Guild Messenger App Server';
 app.locals.users = [
   {
@@ -66,18 +69,17 @@ app.get('/api/v1/conversations/:user_id', (request, response) => {
   response.status(200).json(conversations);
 });
 
+//add a new message to a conversation
 app.patch('/api/v1/conversations/:user_id/:conversation_id', (request, response) => {
   const newMessage = request.body;
-  console.log(request.body)
-  const { user_id, conversation_id } = request.params;
-console.log('user id and convo id', user_id, conversation_id)
+  const { conversation_id } = request.params;
   const conversationIndex = app.locals.conversations.findIndex(conversation => conversation.id === Number(conversation_id));
-console.log(conversationIndex);
-
 
   app.locals.conversations[conversationIndex].message_log.push(newMessage);
 
   response.status(202).send(app.locals.conversations[conversationIndex].message_log);
+
+
 });
 
 
