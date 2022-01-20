@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+app.use(express.json())
 
 app.set('port', process.env.PORT || 3001);
 app.locals.title = 'Guild Messenger App Server';
@@ -62,10 +63,22 @@ app.get('/api/v1/conversations/:user_id', (request, response) => {
   console.log(request.params)
   const conversations = app.locals.conversations.find(conversations => conversations.user_ids.includes(Number(user_id)));
 
-
   response.status(200).json(conversations);
 });
 
+app.patch('/api/v1/conversations/:user_id/:conversation_id', (request, response) => {
+  const newMessage = request.body;
+  console.log(request.body)
+  const { user_id, conversation_id } = request.params;
+console.log('user id and convo id', user_id, conversation_id)
+  const conversationIndex = app.locals.conversations.findIndex(conversation => conversation.id === Number(conversation_id));
+console.log(conversationIndex);
+
+
+  app.locals.conversations[conversationIndex].message_log.push(newMessage);
+
+  response.status(202).send(app.locals.conversations[conversationIndex].message_log);
+});
 
 
 
