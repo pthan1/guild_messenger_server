@@ -1,16 +1,10 @@
-# guild_messenger_server
+# Guild Messenger Server
 
 ## Table of Contents
 
 - [Abstract](#Abstract)
-- [Technologies](#Technologies)
-- [Code Architecture](#Code-Architecture)
 - [Install and Set Up](#Install-and-Set-Up)
-- [Illustrations](#Illustrations)
-- [Wins](#Wins)
-- [Challenges](#Challenges)
 - [Contributors](#Contributors)
-- [Project Specs](#Project-Specs)
 
 ## Abstract
 
@@ -27,3 +21,6 @@ To run the server:
 4. Run `node server.js`.  After the server loads, you should see a message in the console saying "Guild Messenger App Server is running on http://localhost:3001."
 5. Navigate to http://localhost:3001.  You should see a message saying "Welcome to the Guild Messenger API!"
 6. Go back to the app's [repo](https://github.com/pthan1/guild_messenger) and install the app.  
+
+## Contributors
+- [Phil Than](https://github.com/pthan1)
